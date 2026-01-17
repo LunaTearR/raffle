@@ -11,6 +11,7 @@
     "dotenv": "^17.2.3",
     "dotenv-expand": "^12.0.3",
     "elysia": "^1.4.22",
+    "mongoose": "^9.1.4",
     "zod": "^4.3.5"
   },
   "devDependencies": {
