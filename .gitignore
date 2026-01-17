@@ -3,3 +3,16 @@ backend/node_modules/
 backend/package-lock.json
 backend/.env
 backend/dist
+
+raffle-frontend/dist/
+raffle-frontend/dist-ssr
+raffle-frontend/*.local
+raffle-frontend/node_modules/
+raffle-frontend/.env
+raffle-frontend/logs
+raffle-frontend/*.log
+raffle-frontend/npm-debug.log*
+raffle-frontend/yarn-debug.log*
+raffle-frontend/yarn-error.log*
+raffle-frontend/pnpm-debug.log*
+raffle-frontend/lerna-debug.log*
