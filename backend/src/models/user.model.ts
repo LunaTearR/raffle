@@ -5,7 +5,6 @@ const UserSchema: Schema = new Schema({
   name: { type: String, required: true, unique: true },
   receivedAward: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
 });
 
 export type TUser = InferSchemaType<typeof UserSchema>;

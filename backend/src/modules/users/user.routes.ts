@@ -1,15 +1,15 @@
 import Elysia, { status } from "elysia";
-import { UserService } from "./service";
-import { UserModel } from "./model";
+import { UserService } from "@/services/user.service";
+import { UserValidation } from "./user.validation";
 
-export const user = new Elysia({ prefix: "/users" })
+export const user = new Elysia({ prefix: "/students" })
   .get(
     "/",
     async () => {
       try {
         const users = await UserService.getAllUsers();
 
-        if (!users.response.success) {
+        if (!users.success) {
           return status(500, {
             success: false,
             message: "Failed to retrieve users.",
@@ -19,7 +19,7 @@ export const user = new Elysia({ prefix: "/users" })
         return status(200, {
           success: true,
           message: "Get all users successfully.",
-          data: users.response.data,
+          data: users.data,
         });
       } catch (error) {
         return status(500, {
@@ -49,7 +49,7 @@ export const user = new Elysia({ prefix: "/users" })
         const studentId = body.studentId.trim();
         const name = body.name.trim();
 
-        const response = await UserService.createUserFormData({
+        const response = await UserService.createUser({
           studentId,
           name,
           receivedAward: false,
@@ -82,7 +82,7 @@ export const user = new Elysia({ prefix: "/users" })
       }
     },
     {
-      body: UserModel.InputFormBody,
+      body: UserValidation.CreateUserBody,
       detail: {
         description: "Create a new user with the provided data.",
         tags: ["User"],

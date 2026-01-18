@@ -1,8 +1,9 @@
-import { User } from "@/models/user";
-import type { userType } from "@/types/user";
-import { status } from "elysia";
+import { User } from "@/models/user.model";
 
 export abstract class UserService {
+  /**
+   * Get all users from the database
+   */
   static async getAllUsers() {
     try {
       const users = await User.find(
@@ -15,21 +16,31 @@ export abstract class UserService {
         name: user.name,
         receivedAward: user.receivedAward,
       }));
-      return status(200, {
+
+      return {
         success: true,
         message: "Users retrieved successfully.",
         data: result,
-      });
+        statusCode: 200,
+      };
     } catch (error) {
       console.error("Error retrieving users:", error);
-      return status(500, {
+      return {
         success: false,
         message: "Error retrieving users",
-      });
+        statusCode: 500,
+      };
     }
   }
 
-  static async createUserFormData(data: userType) {
+  /**
+   * Create a new user
+   */
+  static async createUser(data: {
+    studentId: string;
+    name: string;
+    receivedAward?: boolean;
+  }) {
     try {
       const existsUser = await User.findOne({ studentId: data.studentId });
 
@@ -44,6 +55,7 @@ export abstract class UserService {
       const newUser = new User({
         studentId: data.studentId,
         name: data.name,
+        receivedAward: data.receivedAward || false,
       });
 
       await newUser.save();

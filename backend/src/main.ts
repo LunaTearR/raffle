@@ -1,7 +1,11 @@
 import { Elysia } from "elysia";
 import { openApi } from "@/plugins/open-api";
 import env from "./env";
-import { user } from "@/modules/users";
+import { user } from "@/modules/users/user.routes";
+import { regis } from "@/modules/registration/registration.routes";
+import { raffleItem } from "@/modules/raffle-items/raffle-item.routes";
+import { raffle } from "@/modules/raffle/raffle.routes";
+import { logs } from "@/modules/logs/logs.routes";
 import mongoose from "mongoose";
 
 try {
@@ -13,7 +17,11 @@ try {
 
 const app = new Elysia()
   .use(openApi)
+  .use(regis)
   .use(user)
+  .use(raffleItem)
+  .use(raffle)
+  .use(logs)
   .listen({
     port: env.PORT || 3000,
     hostname: "0.0.0.0",
