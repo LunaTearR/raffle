@@ -5,7 +5,7 @@ FROM oven/bun:1 AS builder
 WORKDIR /app
 
 # ก๊อปปี้ไฟล์ package.json และ lock file มาก่อน (เพื่อใช้ Cache ของ Docker)
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 
 # ติดตั้ง dependencies (รวม devDependencies เพื่อใช้ build)
 RUN bun install --frozen-lockfile

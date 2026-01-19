@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASE_URL="http://localhost:3000"
+BASE_URL="http://localhost:8080"
 
 echo "🧪 Testing Raffle API..."
 echo ""

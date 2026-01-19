@@ -9,4 +9,9 @@ export namespace RaffleItemValidation {
     quantity: t.Number({ minimum: 0 }),
     itemPic: t.Optional(t.String()),
   });
+  export const UpdateItemBody = t.Object({
+    name: t.Optional(t.String()),
+    quantity: t.Optional(t.Number({ minimum: 0 })),
+    itemPic: t.Optional(t.String()),
+  });
 }

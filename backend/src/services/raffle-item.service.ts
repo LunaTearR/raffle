@@ -68,6 +68,74 @@ export abstract class RaffleItemService {
   }
 
   /**
+   * Update a raffle item
+   */
+  static async updateRaffleItem(
+    id: string,
+    data: { name?: string; quantity?: number; itemPic?: string }
+  ) {
+    try {
+      const updatedItem = await RaffleItem.findByIdAndUpdate(
+        id,
+        { $set: data },
+        { new: true }
+      );
+
+      if (!updatedItem) {
+        return {
+          success: false,
+          message: "Raffle item not found",
+          statusCode: 404,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Raffle item updated successfully.",
+        data: updatedItem,
+        statusCode: 200,
+      };
+    } catch (error) {
+      console.error("Error updating raffle item:", error);
+      return {
+        success: false,
+        message: "Error updating raffle item",
+        statusCode: 500,
+      };
+    }
+  }
+
+  /**
+   * Delete a raffle item
+   */
+  static async deleteRaffleItem(id: string) {
+    try {
+      const deletedItem = await RaffleItem.findByIdAndDelete(id);
+
+      if (!deletedItem) {
+        return {
+          success: false,
+          message: "Raffle item not found",
+          statusCode: 404,
+        };
+      }
+
+      return {
+        success: true,
+        message: "Raffle item deleted successfully.",
+        statusCode: 200,
+      };
+    } catch (error) {
+      console.error("Error deleting raffle item:", error);
+      return {
+        success: false,
+        message: "Error deleting raffle item",
+        statusCode: 500,
+      };
+    }
+  }
+
+  /**
    * Perform raffle - randomly select n winners
    */
   static async performRaffle(n: number = 1) {

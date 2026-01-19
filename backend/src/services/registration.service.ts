@@ -1,5 +1,6 @@
 import { User } from "@/models/user.model";
 import { validateStudentId } from "@/utils/validation";
+import { SystemStateService } from "@/services/system.state";
 
 export abstract class RegistrationService {
   /**
@@ -7,6 +8,15 @@ export abstract class RegistrationService {
    */
   static async registerStudent(stdId: string) {
     try {
+      // Check if registration is open
+      if (!SystemStateService.isRegistrationOpen()) {
+        return {
+          success: false,
+          message: "Registration is currently closed.",
+          statusCode: 403,
+        };
+      }
+
       // Validate format
       if (!validateStudentId(stdId)) {
         return {
